@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Huerto en casa · De la semilla a la cosecha</title>
-<meta name="description" content="Guía día por día para cultivar 12 plantas en macetas en Lima, Perú: tomate, perejil, beterraga, manzanilla, pimiento, brócoli, cebolla, cilantro, apio, zanahoria, lechuga y albahaca.">
+<meta name="description" content="Guía día por día para cultivar 27 plantas en macetas en Lima, Perú: hortalizas, hierbas y frutales como tomate, palta Hass, limón, papaya y plátano de seda, con poda y abonado NPK.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌱%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
@@ -32,6 +32,7 @@ h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;margin-bottom:16px}
 #art svg{display:block;width:100%;height:auto}
 .dayrow{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 4px;font-family:var(--hd);font-weight:700}
 #dn{font-size:2rem}
+#dd{font:500 .95rem var(--bd);color:var(--ink);background:#fff;padding:4px 8px;border:1px solid var(--line);border-radius:8px;cursor:pointer}
 input[type=range]{width:100%;accent-color:var(--leaf);height:34px}
 .now-st{background:#eef6ec;border-radius:12px;padding:12px 14px;margin-top:8px}
 .now-st h3{font-size:1.25rem;margin-bottom:4px}.now-st p{margin:0}
@@ -52,6 +53,12 @@ ol li button{all:unset;cursor:pointer;display:block;width:100%}
 .hv{background:#fff3d6}.tp{background:#e1f0f7}
 .box h3{font-size:1.1rem;margin-bottom:4px}.box p{margin:0}
 section.g{margin-top:64px}
+.pd{background:#e3f0dc}.tw{overflow-x:auto;margin-bottom:6px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mute);font-weight:500}
+.fx{display:inline-block;font-weight:700;border-radius:99px;padding:1px 10px;white-space:nowrap}
+.fx.e{background:#e4e8e2}.fx.n{background:#cfe9c4;color:#1f4d1c}.fx.p{background:#fbdcb6;color:#6b3b00}.fx.k{background:#e1d3f5;color:#43257a}
+.mt{color:var(--mute);margin:6px 0 16px;font-size:.95rem}
 .gr{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px 32px}
 .gr h3{font-size:1.25rem;margin-bottom:6px;color:var(--leaf)}.gr p{margin:0 0 8px}
 footer{margin:64px 0 40px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line);padding-top:18px}
@@ -62,7 +69,7 @@ footer{margin:64px 0 40px;color:var(--mute);font-size:.9rem;border-top:1px solid
 <body>
 <header><div class="w">
 <h1>De la semilla a la cosecha</h1>
-<p>Guía día por día para cultivar 12 plantas en macetas, pensada para el clima de Lima. Elige una planta, mueve el control de días y mira cómo crece y qué tienes que hacer en cada etapa.</p>
+<p>Guía día por día para cultivar 27 plantas (hortalizas, hierbas y frutales) en macetas, con poda y abonado, pensada para el clima de Lima. Elige una planta, mueve el control de días y mira cómo crece y qué tienes que hacer en cada etapa.</p>
 <div id="now"></div>
 </div></header>
 
@@ -73,7 +80,7 @@ footer{margin:64px 0 40px;color:var(--mute);font-size:.9rem;border-top:1px solid
 <div id="ex">
  <div class="stage">
   <div id="art" role="img" aria-live="polite"></div>
-  <div class="dayrow"><span>Día <span id="dn">0</span></span><span id="dd" style="color:var(--mute);font-size:.95rem"></span></div>
+  <div class="dayrow"><span>Día <span id="dn">0</span></span><input id="dd" type="date" aria-label="Elegir una fecha para saltar al día correspondiente"></div>
   <input id="sl" type="range" min="0" value="0" aria-label="Días desde la siembra">
   <div class="now-st"><h3 id="st"></h3><p id="stx"></p><span id="rd" class="ready" hidden>Ya puedes cosechar</span></div>
  </div>
@@ -84,6 +91,9 @@ footer{margin:64px 0 40px;color:var(--mute);font-size:.9rem;border-top:1px solid
   <h2 style="font-size:1.4rem">Calendario</h2>
   <ol id="tl"></ol>
   <div class="box hv"><h3>Cómo cosechar</h3><p id="hv"></p></div>
+  <div class="box pd"><h3>Cuándo y cómo podar</h3><p id="po"></p></div>
+  <h2 style="font-size:1.4rem">Abonado</h2>
+  <div class="tw"><table id="nu"></table></div><p id="nn" class="mt"></p>
   <div class="box tp"><h3>Consejo del agricultor</h3><p id="tp"></p></div>
  </div>
 </div>
@@ -95,6 +105,17 @@ footer{margin:64px 0 40px;color:var(--mute);font-size:.9rem;border-top:1px solid
 <div><h3>Semillas y luz</h3><p>No necesitan oscuridad. La mayoría germina bajo una capa fina de tierra; lechuga, apio y manzanilla necesitan luz y se siembran en la superficie.</p><p>Una tapa transparente retiene humedad: ventílala a diario y quítala cuando salgan los brotes. Después de brotar, todas necesitan luz.</p></div>
 <div><h3>Riego</h3><p>No hay un volumen fijo: depende de la tierra, el calor, el viento y la maceta. Germinación: humedad pareja con pulverizador. Plantas con hojas: riega cuando la superficie empiece a secarse.</p><p>Prueba del dedo: métela 2 cm; si está seca, riega hasta que salga agua por abajo. Evita tierra empapada y que las plántulas se marchiten.</p></div>
 <div><h3>Clima de Lima</h3><p>Entre mayo y octubre hay garúa, poca radiación y 15–19 °C: ideal para hojas y raíces (lechuga, zanahoria, brócoli). Entre diciembre y abril hace calor y sale el sol: ideal para tomate, pimiento y albahaca.</p><p>En invierno ubica las plantas de fruto en el rincón más soleado. Revisa el envés de las hojas por pulgones y mosca blanca: se controlan con jabón potásico.</p></div>
+</div>
+</section>
+
+<section class="g" id="abonos">
+<h2>Cuál abono usar y cuándo</h2>
+<div class="gr">
+<div><h3>20-20-20 (equilibrado)</h3><p>Uso general y de mantenimiento. Úsalo en plántulas (a media dosis), entre fases y en plantas poco exigentes.</p></div>
+<div><h3>Alto en nitrógeno (N)</h3><p>Para hojas y crecimiento verde: hojas, hierbas y etapa de crecimiento antes de las flores. No lo uses en floración, frutos ni mientras engrosan raíces.</p></div>
+<div><h3>Alto en fósforo (P)</h3><p>Para raíces y arranque: úsalo al trasplantar, al enraizar un esqueje o plantón y justo antes de la floración.</p></div>
+<div><h3>Alto en potasio (K)</h3><p>Para flores, frutos y raíces que engordan; mejora el sabor y la resistencia. Es el abono de la fase final.</p></div>
+<div><h3>Reglas de uso</h3><p>Sigue la dosis de la etiqueta; si dudas, usa la mitad. Riega antes de abonar y nunca abones sustrato seco ni plantas marchitas. No abones plántulas antes de la 2.ª hoja verdadera. Cada 2 meses riega abundante para lavar las sales.</p></div>
 </div>
 </section>
 </main>
@@ -163,8 +184,115 @@ const P=[
  f:[["Germinación","5–10 días a 20–28 °C"],["Profundidad","0,3–0,5 cm"],["Luz","5–7 h de sol directo"],["Macetas","Alveolo → 1–2 L → definitiva 5–10 L"],["Primera cosecha","30–45 días"]],
  s:[[0,"Siembra","Semillas a 0,3–0,5 cm en un lugar cálido."],[1,"Germinación","Sustrato húmedo, sin encharcar."],[5,"Brotes","Retira la cubierta; buena luz."],[10,"Hojas verdaderas","Evita frío y exceso de agua."],[20,"Primer trasplante","A 1–2 L si las raíces piden espacio."],[30,"Maceta definitiva","A 5–10 L y primera poda de puntas."],[45,"Cosecha continua","Retira las flores para alargar la producción de hojas."]],
  hv:"Corta la punta de un tallo justo sobre un par de hojas: de ahí salen ramas nuevas. No quites todas las hojas a la vez.",
- tp:"No la riegues sobre las hojas por la tarde con frío: se manchan y pudren."}
+ tp:"No la riegues sobre las hojas por la tarde con frío: se manchan y pudren."},
+{n:"Fresa",k:"berry",c:"#d6283a",lc:"#3f9a4a",gd:21,h:[120,180],m:r(4,9),
+ f:[["Germinación","14–30 días; necesita luz"],["Profundidad","Superficial: presiona la semilla, sin cubrir"],["Luz","6–8 h de sol (sombra ligera en las tardes de calor)"],["Macetas","Alveolo → definitiva 5–8 L por planta, o jardinera con 25–30 cm entre plantas"],["Primera cosecha","120–180 días desde semilla · 60–90 desde plantín"]],
+ s:[[0,"Siembra","Semillas diminutas sobre sustrato fino y húmedo. Presiónalas sin cubrir: necesitan luz."],[1,"Paciencia","Humedad constante con pulverizador y tapa ventilada. Germinan lento."],[14,"Brotes","Pueden tardar hasta 30 días. Retira la tapa poco a poco."],[35,"Hojas verdaderas","Hojas de tres foliolos. Luz abundante y riego suave."],[60,"Trasplante","Con 3–4 hojas, pasa a 5–8 L. La corona debe quedar a ras del sustrato, sin enterrar."],[90,"Crecimiento","6–8 h de sol, riego regular sin mojar los frutos y abono rico en potasio. Quita hojas secas."],[120,"Flores","Aparecen flores blancas; los frutos maduran unas 4–5 semanas después."],[150,"Cosecha","Frutos completamente rojos."]],
+ hv:"Corta el fruto con 1–2 cm de tallo cuando esté rojo por completo, sin zonas blancas ni verdes: la fresa no madura después de cortada. Mejor temprano en la mañana.",
+ tp:"De semilla tarda de 4 a 6 meses; con plantines o estolones llegas a la fruta en 2–3 meses. Pon paja o una tela bajo los frutos para que no toquen la tierra y se pudran."},
+{n:"Lenteja",k:"pod",c:"#c9a35a",lc:"#6aa84f",gd:7,h:[80,110],m:r(4,8),
+ f:[["Germinación","5–10 días a 15–25 °C"],["Profundidad","2–3 cm"],["Luz","6–8 h de sol directo"],["Maceta","Siembra directa: jardinera o maceta de 10–15 L, 25 cm de fondo"],["Distancia","5–8 cm entre semillas"],["Cosecha","80–110 días (seca)"]],
+ s:[[0,"Siembra directa","Semillas secas crudas (no cocidas ni tratadas) a 2–3 cm. Un remojo de 4–6 h es opcional."],[1,"Germinación","Humedad ligera, sin encharcar: se pudren con facilidad."],[7,"Brotes","Salen tallos finos. Dales luz abundante."],[14,"Primeras hojas","Hojitas pequeñas en pares. Riega poco y deja secar la superficie."],[30,"Crecimiento","Llega a 20–30 cm. No necesita abono nitrogenado: fija su propio nitrógeno. Un tutor ligero ayuda."],[45,"Floración","Flores pequeñas blanco-lilas. Evita mojarlas."],[60,"Vainas","Aparecen vainas planas con 1–2 semillas. Reduce el riego."],[85,"Madurez","La planta amarillea y las vainas se ponen marrones y secas."]],
+ hv:"Cuando unas 2/3 partes de las vainas estén marrones, corta o arranca la planta entera y cuélgala a la sombra 1–2 semanas. Luego desgrana las vainas a mano y guarda las lentejas bien secas en un frasco cerrado.",
+ tp:"No trasplantes: tiene raíz pivotante. Rinde poco por maceta, así que siémbrala en jardinera con muchas plantas. Después enriquece la tierra para un cultivo exigente como brócoli o tomate."},
+{n:"Plátano de seda",k:"banana",c:"#f2d03b",lc:"#4aa24f",gd:0,h:[420,540],m:r(10,3),
+ f:[["Se parte de","Hijuelo (colino) sano de 40–60 cm; no de semilla"],["Luz","6–8 h de sol y calor"],["Maceta","40–60 L con buen drenaje y compost"],["Riego","Constante, sin encharcar"],["Primera cosecha","14–18 meses"]],
+ s:[[0,"Siembra del hijuelo","Pon el hijuelo en la maceta, cubre el cormo y riega a fondo."],[30,"Enraizamiento","Salen hojas nuevas. Riega seguido, sin encharcar."],[120,"Crecimiento","Hojas grandes y humedad constante. Deja 1–2 hijuelos."],[240,"Pseudotallo grueso","Crece rápido; protégelo del viento."],[330,"Floración","Sale la bellota y se abren las manos de bananos."],[420,"Llenado y cosecha","Los dedos se redondean y engordan."]],
+ hv:"Cuando los dedos estén llenos y redondeados (sin aristas) y empiecen a aclarar de color, corta el racimo con un machete limpio dejando 20–30 cm de raquis. Madura a la sombra.",
+ tp:"Su crecimiento se frena bajo 18 °C: protégela del viento y del frío del invierno limeño."},
+{n:"Uva verde",k:"vine",c:"#c5e08a",lc:"#4c9a4f",cl:1,gd:0,h:[600,900],m:r(7,10),
+ f:[["Se parte de","Plantón injertado o esqueje enraizado"],["Luz","8 h o más de sol directo"],["Maceta","40–60 L con tutor y espaldera de 1,8–2 m"],["Riego","Moderado; deja secar la superficie"],["Primera cosecha","20–30 meses"]],
+ s:[[0,"Plantón","Siembra junto a un tutor."],[30,"Brotación","Elige el brote más fuerte y quita los demás."],[120,"Crecimiento","Guía el brote hasta el alambre."],[270,"Brazos","Despunta y forma 2 brazos."],[365,"Reposo","Primera poda de formación en invierno."],[500,"Floración","Racimos pequeños; no los mojes."],[600,"Maduración","Las bayas engordan y se endulzan."]],
+ hv:"Cuando las bayas estén dulces (pruébalas) y de color verde amarillento translúcido, corta el racimo con tijera. La uva no madura después de cortada.",
+ tp:"Necesita sol pleno y aire: la humedad de la garúa favorece los hongos, así que mantén la mata aireada."},
+{n:"Limón",k:"tree",c:"#d4e157",lc:"#4c9a4f",gd:0,h:[540,730],m:r(9,12),
+ f:[["Se parte de","Plantón injertado"],["Luz","6–8 h de sol"],["Maceta","30–50 L con drenaje excelente"],["Riego","Cuando los primeros 3 cm estén secos"],["Primera cosecha","18–24 meses"]],
+ s:[[0,"Plantación","Deja el injerto por encima del sustrato."],[30,"Adaptación","Riego regular y sol. Quita brotes bajo el injerto."],[120,"Crecimiento","Guía 3–4 ramas principales."],[300,"Estructura","Copa formada; poda ligera."],[420,"Floración","Flores de azahar; mantén el riego estable."],[480,"Fruto verde","Los limones engordan."],[540,"Cosecha","Primeros frutos."]],
+ hv:"Corta con tijera cuando el fruto tenga buen tamaño y color intenso, con el pedúnculo corto. Los cítricos no maduran más después de cortados.",
+ tp:"Nunca entierres el injerto. El agua estancada pudre la raíz: usa macetas con agujeros."},
+{n:"Granadilla",k:"vine",c:"#f2a63a",lc:"#4c9a4f",gd:0,h:[300,420],m:r(8,11),
+ f:[["Se parte de","Plantón de 20–30 cm"],["Luz","6–8 h de sol; clima templado"],["Maceta","40–60 L con espaldera de 2 m"],["Riego","Regular; no dejes secar del todo"],["Primera cosecha","10–14 meses"]],
+ s:[[0,"Plantación","Siembra junto al tutor."],[30,"Adaptación","Riego regular y sol."],[90,"Guía principal","Ata el tallo al tutor hasta el alambre."],[180,"Ramificación","Despunta y deja 2 ramas laterales."],[240,"Floración","Flores grandes y vistosas."],[300,"Frutos","Pasan de verde a anaranjado."]],
+ hv:"Cosecha cuando la cáscara pase de verde a amarillo anaranjado y corta con tijera. Si cae sola está en su punto: recógela del suelo.",
+ tp:"Prefiere clima templado: en la costa fresca de Lima crece, pero fructifica mejor en zonas cálidas y sin viento."},
+{n:"Papaya",k:"papaya",c:"#f08a24",lc:"#4aa24f",gd:15,h:[270,360],m:r(10,3),
+ f:[["Germinación","10–20 días a 25–30 °C"],["Profundidad","1 cm"],["Luz","6–8 h de sol y calor"],["Macetas","Vaso 200 ml → 5–10 L → definitiva 50–100 L"],["Primera cosecha","9–12 meses"]],
+ s:[[0,"Siembra","2–3 semillas lavadas (sin gelatina) a 1 cm por vaso."],[1,"Germinación","Calor y humedad; tarda 10–20 días."],[20,"Brotes","Deja la plántula más fuerte; mucha luz."],[45,"Primer trasplante","Con 4–6 hojas pasa a 5–10 L."],[75,"Maceta definitiva","Pasa a 50–100 L en la época cálida."],[150,"Crecimiento","Tallo grueso; riego regular sin encharcar."],[210,"Floración","Flores en las axilas de las hojas."],[270,"Frutos","Engordan y cambian de color."]],
+ hv:"Cuando el fruto muestre rayas amarillas (un cuarto amarillo), gíralo hasta desprenderlo o córtalo con cuchillo. Termina de madurar en casa.",
+ tp:"Odia el frío y el encharcamiento. En el invierno limeño casi no crece: siémbrala al inicio del calor."},
+{n:"Palta Hass",k:"tree",c:"#4a3a32",lc:"#3f8a46",gd:0,h:[1000,1400],m:r(9,12),
+ f:[["Se parte de","Plantón injertado (de semilla no sale Hass)"],["Luz","6–8 h de sol"],["Maceta","60–100 L con drenaje excelente"],["Riego","Moderado; nunca encharcado"],["Primera cosecha","3–4 años"]],
+ s:[[0,"Plantación","Deja el injerto sobre el sustrato."],[60,"Adaptación","Sol y riego moderado."],[300,"Crecimiento","Copa joven; despunta para ramificar."],[600,"Estructura","Poda ligera de formación."],[800,"Floración","Flores pequeñas; riego estable."],[1000,"Frutos","Engordan lentamente."]],
+ hv:"La Hass se mantiene dura en el árbol y madura después de cortada. Cosecha cuando tenga el tamaño típico y la cáscara se vea más oscura y rugosa; corta con tijera dejando 1 cm de pedúnculo. Déjala 5–10 días en casa hasta que ceda al presionar.",
+ tp:"El mayor peligro es el exceso de agua. Verifica que la maceta drene bien."},
+{n:"Mandarina",k:"tree",c:"#f08a24",lc:"#4c9a4f",gd:0,h:[730,1100],m:r(9,12),
+ f:[["Se parte de","Plantón injertado"],["Luz","6–8 h de sol"],["Maceta","40–60 L con drenaje excelente"],["Riego","Cuando los primeros 3 cm estén secos"],["Primera cosecha","2–3 años"]],
+ s:[[0,"Plantación","Deja el injerto por encima del sustrato."],[30,"Adaptación","Riego regular y sol."],[150,"Crecimiento","Guía 3–4 ramas principales."],[365,"Estructura","Poda ligera."],[540,"Floración","Flores de azahar."],[640,"Fruto verde","Los frutos engordan."],[730,"Cosecha","Primeros frutos."]],
+ hv:"Cuando el color sea naranja intenso y esté dulce, corta con tijera dejando el botón verde en el fruto; no lo jales.",
+ tp:"Si la copa se carga mucho, puede dar fruto solo cada dos años: ralear frutos ayuda."},
+{n:"Orégano",k:"shrub",c:"#fff",lc:"#5a9a4a",wd:5,ln:70,fl:"#e6b3d9",gd:10,h:[70,100],m:r(9,2),
+ f:[["Germinación","7–14 días; semilla muy fina"],["Profundidad","Superficial: no la cubras"],["Luz","6–8 h de sol"],["Maceta","5–10 L con excelente drenaje"],["Primera cosecha","70–100 días"]],
+ s:[[0,"Siembra","Esparce la semilla sobre sustrato húmedo y presiona."],[1,"Germinación","Pulveriza; tapa ventilada opcional."],[10,"Brotes","Retira la tapa y dale luz."],[35,"Trasplante","A 5–10 L con 4–6 hojas."],[60,"Ramificación","Despunta para que se ponga tupido."],[90,"Cosecha","Corta ramas antes de que florezca."]],
+ hv:"Corta ramas por la mañana, antes de la floración, cuando tiene más aroma. Sécalas en manojos colgados a la sombra.",
+ tp:"Tolera la sequía: el exceso de agua es su peor enemigo."},
+{n:"Hierba buena",k:"shrub",c:"#fff",lc:"#3f9a4a",wd:7,ln:65,gd:0,h:[30,45],m:r(1,12),
+ f:[["Se parte de","Esqueje de 10 cm o planta con raíces"],["Raíces","7–14 días en agua o sustrato húmedo"],["Luz","4–6 h de sol o semisombra"],["Maceta","5–10 L, solo para ella (invade)"],["Primera cosecha","30–45 días"]],
+ s:[[0,"Esqueje","Corta 10 cm bajo un nudo, quita las hojas bajas y ponlo en agua o sustrato húmedo."],[10,"Raíces","Con raíces de 2–3 cm, siémbralo en la maceta."],[20,"Crecimiento","Riego regular; sustrato húmedo."],[30,"Primera poda","Pellizca las puntas para que ramifique."],[45,"Cosecha","Corta tallos completos."]],
+ hv:"Corta tallos de la parte alta, sobre un par de hojas, y deja al menos 1/3 de la planta. Rebrota rápido.",
+ tp:"Aguanta la semisombra y exige humedad. Si se vuelve leñosa, renuévala con esquejes."},
+{n:"Hierba luisa",k:"leaf",c:"#8fcf6a",lc:"#8fcf6a",wd:2.5,ln:95,gd:0,h:[90,150],m:r(9,3),
+ f:[["Se parte de","División de una mata con raíces"],["Luz","6–8 h de sol"],["Maceta","10–20 L"],["Riego","Frecuente en verano; menos en invierno"],["Primera cosecha","90–150 días"]],
+ s:[[0,"División","Separa 3–5 tallos con raíz y siembra a 5 cm de profundidad."],[14,"Adaptación","Riego regular y sol directo."],[40,"Macollo","Salen tallos nuevos desde la base."],[75,"Mata formada","Hojas largas de 60–80 cm."],[100,"Cosecha","Corta los tallos gruesos."]],
+ hv:"Corta los tallos exteriores gruesos a 10–15 cm del suelo con cuchillo limpio. Úsalos frescos o secos para infusión.",
+ tp:"Divide la mata cada 2 años para que no envejezca."},
+{n:"Cedrón",k:"shrub",c:"#fff",lc:"#6aa84f",wd:4,ln:100,gd:0,h:[120,180],m:r(9,12),
+ f:[["Se parte de","Esqueje semileñoso de 15 cm"],["Raíces","20–40 días"],["Luz","6–8 h de sol"],["Maceta","15–25 L"],["Primera cosecha","4–6 meses"]],
+ s:[[0,"Esqueje","Planta en sustrato arenoso y húmedo."],[30,"Enraizamiento","Cuando salga una hoja nueva, ya tiene raíz."],[60,"Trasplante","Pasa a 15–25 L."],[100,"Ramificación","Pellizca las puntas."],[130,"Cosecha","Corta hojas y ramitas."]],
+ hv:"Corta ramitas con hojas por la mañana. Úsalas frescas o sécalas a la sombra para infusión.",
+ tp:"Puede perder hojas en invierno frío: es normal y rebrota en primavera."},
+{n:"Romero",k:"shrub",c:"#fff",lc:"#4f7d5a",wd:2.5,ln:90,fl:"#b9a3e0",gd:0,h:[90,150],m:r(3,10),
+ f:[["Se parte de","Esqueje de 10–12 cm"],["Raíces","20–40 días"],["Luz","6–8 h de sol"],["Maceta","10–20 L con drenaje excelente"],["Primera cosecha","90–150 días"]],
+ s:[[0,"Esqueje","Quita las hojas bajas y siembra en sustrato arenoso."],[30,"Enraizamiento","Humedad leve, sin encharcar."],[60,"Trasplante","Pasa a 10–20 L."],[100,"Crecimiento","Riego escaso y sol pleno."],[130,"Cosecha","Corta puntas."]],
+ hv:"Corta puntas de 5–8 cm sin pasar de 1/3 de la planta. Úsalas frescas o secas.",
+ tp:"Riega solo cuando los 3 cm superficiales estén secos."},
+{n:"Ají limo",k:"fruit",c:"#f5a623",lc:"#4c9a4f",gd:10,h:[120,180],m:r(9,1),
+ f:[["Germinación","10–20 días a 25–30 °C"],["Profundidad","0,5 cm"],["Luz","6–8 h de sol"],["Macetas","Vaso 200 ml → 1–3 L → definitiva 10–20 L"],["Primera cosecha","120–180 días"]],
+ s:[[0,"Siembra","2 semillas a 0,5 cm en un sitio cálido."],[1,"Germinación","Humedad constante; con frío tarda más."],[14,"Brotes","Retira la cubierta y dale luz."],[35,"Primer trasplante","A 1–3 L con varias hojas verdaderas."],[60,"Maceta definitiva","A 10–20 L."],[90,"Flores","Quita la primera flor; riego regular."],[120,"Cosecha","Frutos con color típico y brillantes."]],
+ hv:"Con guantes, corta con tijera cuando el fruto tenga su color típico y brillo, dejando el pedúnculo. Cosechar seguido estimula más frutos.",
+ tp:"Usa guantes y no te toques los ojos. Rebrota varios años si lo podas."}
 ];
+const F={e:"20-20-20",n:"Alto N",p:"Alto P",k:"Alto K"};
+const NP=[["Plántula (desde la 2.ª hoja verdadera)","e","½ dosis cada 14 días"],["Trasplante a la maceta definitiva","p","2 aplicaciones, 1 por semana"],["Crecimiento antes de las flores","n","cada 14 días"],["Floración y frutos","k","cada 10–14 días; cada 3.ª vez usa 20-20-20"]];
+const NC=[["Plantación (días 0–60)","p","2 aplicaciones, cada 21 días"],["Crecimiento y después de la poda","n","cada 30 días en meses cálidos"],["Antes de la floración","e","1 aplicación"],["Fruto verde engordando","k","cada 30 días"]];
+const X={
+"Tomate":{po:"Cuándo: cada semana desde el día 40. Cómo: con los dedos, por la mañana, quita los chupones (brotes entre el tallo y la hoja) cuando midan 3–5 cm; deja 1–2 tallos. Retira hojas bajas amarillas o que toquen la tierra. 4 semanas antes de terminar la temporada, corta la punta. Si tu variedad es determinada (mata baja), no quites chupones.",nu:[["Plántula (desde la 2.ª hoja verdadera)","e","½ dosis cada 14 días"],["Trasplante a la maceta definitiva","p","2 aplicaciones, 1 por semana"],["Crecimiento (días 40–55)","n","cada 14 días, hasta ver el primer botón floral"],["Floración y frutos (día 55 hasta cosecha)","k","cada 10–14 días; cada 3.ª vez usa 20-20-20"]]},
+"Perejil":{po:"No hay poda formal: cosechar es podar. Corta los tallos exteriores cerca de la base y deja el centro. Retira hojas amarillas y corta cualquier tallo floral que aparezca.",nu:[["Después del trasplante (día 35+)","n","½ dosis cada 15 días"],["Tras una cosecha fuerte","n","½ dosis a los 5 días del corte"]],nn:"No necesita Alto P ni Alto K."},
+"Beterraga":{po:"No se poda. En el raleo (días 10–20) corta las plántulas sobrantes a ras del suelo. Si quieres hojas tiernas, toma pocas hojas exteriores (menos de 1/3) para no frenar la raíz.",nu:[["Hojas establecidas (días 15–30)","e","½ dosis cada 15 días"],["Engrosamiento de la raíz (días 30–60)","k","cada 15 días"]],nn:"Evita el Alto N en esta fase: da hojas y poca raíz."},
+"Manzanilla":{po:"Cuándo: al llegar a 15 cm (días 25–35). Cómo: pellizca la punta con los dedos para que ramifique. En la floración, cosechar flores es la poda; al terminar, corta los tallos secos.",nu:[["Crecimiento (días 25–60)","e","½ dosis cada 21 días"],["Aparición de botones","p","½ dosis, 1 sola vez"]],nn:"Es poco exigente: no la sobreabones."},
+"Pimiento":{po:"Cuándo: al trasplantar y durante el crecimiento. Cómo: con tijera limpia quita la primera flor (la de la primera bifurcación) para que la planta se fortalezca. Retira chupones y hojas por debajo de esa bifurcación y las hojas amarillas.",nu:NP},
+"Brócoli":{po:"No se poda. Quita con tijera las hojas amarillas o dañadas de la parte baja. Tras cortar la cabeza central no arranques la planta: deja que saque brotes laterales y córtalos cuando tengan cabecitas compactas.",nu:[["Trasplante a la maceta definitiva (días 30–40)","p","1 aplicación"],["Hojas grandes (días 40–55)","n","cada 10–14 días"],["Formación de la cabeza (día 55+)","e","cada 14 días"]],nn:"Suspende el Alto N cuando veas la cabeza: engorda hojas, no cabeza."},
+"Cebolla":{po:"No se podan las hojas. Si aparece un tallo floral (escapo) en el centro, córtalo enseguida y usa esa cebolla pronto: ya no engrosará.",nu:[["Trasplante (días 30–45)","p","1 aplicación"],["Hojas (días 45–75)","n","cada 14 días"],["Engrosamiento del bulbo (día 75+)","k","cada 15 días"]],nn:"Deja de abonar y reduce el riego cuando las hojas empiecen a doblarse."},
+"Cilantro":{po:"No se poda: cosechar hojas exteriores es la poda. Si sale un tallo floral, córtalo al verlo y siembra de nuevo cada 3 semanas.",nu:[["Solo si las hojas amarillean (días 20–40)","n","½ dosis cada 15 días"]],nn:"Crece rápido y casi no necesita abono."},
+"Apio":{po:"No se poda el centro. Retira los tallos exteriores amarillos o dañados cortándolos desde la base.",nu:[["Crecimiento lento (días 35–65)","e","cada 14 días"],["Engorde de tallos (día 65+)","n","cada 10–14 días"],["Cada 3.ª aplicación del engorde","k","para tallos firmes"]]},
+"Zanahoria":{po:"No se poda. Haz el raleo (días 14–30) cortando las plantas sobrantes a ras. No cortes el follaje: la raíz lo necesita para engrosar.",nu:[["Plantas ya raleadas (día 30)","e","½ dosis, 1 sola vez"],["Engrosamiento de la raíz (días 50–80)","k","cada 15 días"]],nn:"Evita el Alto N: da hojas grandes y raíces cortas y peludas."},
+"Lechuga":{po:"No se poda. Retira las hojas amarillas. Si sube un tallo floral, corta la planta y siembra otra.",nu:[["Desde el trasplante (día 15+)","n","½ dosis cada 10–14 días"]],nn:"Suspende el abono 1 semana antes de cosechar."},
+"Albahaca":{po:"Cuándo: con 3–4 pares de hojas (días 30–40) y luego cada 1–2 semanas. Cómo: corta justo encima del segundo par de hojas para que salgan 2 ramas nuevas. Elimina siempre las flores.",nu:[["Después del trasplante y de cada poda","n","½ dosis cada 15 días"]]},
+"Fresa":{po:"Cuándo: tras la primera cosecha y cada vez que haya hojas secas. Cómo: corta hojas viejas, secas o manchadas por el pecíolo y deja intacta la corona (el centro). Quita los estolones (guías con plantitas) si quieres más fruta; déjalos si quieres multiplicar la planta. Retira frutos podridos.",nu:[["Trasplante (día 60)","p","2 aplicaciones, semanas 1 y 3"],["Crecimiento (días 90–120)","e","cada 14 días"],["Floración y frutos (día 120+)","k","cada 10–14 días"]],nn:"No uses Alto N con flores: da muchas hojas y poca fruta."},
+"Lenteja":{po:"No se poda ni se despunta. Solo retira hojas amarillas de la base.",nu:[["A los 30 días","p","½ dosis, 1 sola vez"],["Floración (día 45)","k","½ dosis, 1 sola vez"]],nn:"No uses Alto N: fija su propio nitrógeno."},
+"Plátano de seda":{po:"Cuándo: retira hojas secas cuando se doblen (todo el año) y los hijuelos sobrantes cada 2–3 meses. Cómo: deja la planta madre y 1 hijo bien ubicado; corta los demás al ras del cormo con cuchillo limpio. Cuando termine de abrir la última mano de bananos, corta la bellota (flor masculina) 10–15 cm bajo ella. Tras cosechar, corta el pseudotallo a 30–50 cm: el hijo toma su lugar.",nu:[["Enraizamiento (días 0–60)","p","2 aplicaciones, cada 15 días"],["Crecimiento (días 60–300)","n","cada 15 días; cada 3.ª vez usa 20-20-20"],["Floración y llenado del racimo (día 300+)","k","cada 10–14 días"]],nn:"El banano consume mucho potasio."},
+"Uva verde":{po:"Formación (año 1, en invierno): elige un solo brote, guíalo por el tutor hasta el alambre y despunta; deja 2 brazos. Producción (cada invierno, jun–ago, con la planta en reposo): deja pitones de 2–3 yemas y varas de 8–12 yemas; corta lo demás sobre una yema. En primavera quita brotes sin racimo (desbrote) y ralea racimos para que queden separados.",nu:[["Brotación (días 30–90)","n","½ dosis cada 15 días, 3 aplicaciones"],["Formación (días 90–360)","e","cada 20 días"],["Antes de la floración","p","1–2 aplicaciones"],["Racimos hasta el envero (cambio de color)","k","cada 15 días; suspende 3 semanas antes de cosechar"]],nn:"Después del cuaje no uses Alto N: retrasa la maduración."},
+"Limón":{po:"Cuándo: poda ligera una vez al año, después de cosechar; quita los chupones (brotes verticales bajo el injerto) apenas aparezcan. Cómo: con tijera o serrucho desinfectado corta ramas secas, cruzadas o que crecen hacia adentro, justo sobre una yema. Abre el centro para que entre aire y luz. No quites más de 1/3 de la copa.",nu:NC,nn:"Si las hojas amarillean entre las nervaduras falta hierro o zinc: usa un fertilizante con microelementos."},
+"Granadilla":{po:"Cuándo: formación en los primeros 5–6 meses y mantenimiento después de cada cosecha. Cómo: deja un solo tallo atado al tutor hasta el alambre y despúntalo a 1,8–2 m. Deja 2 ramas laterales y quita los brotes bajos. Tras cosechar, corta las ramas que ya dieron fruto, las secas y las enredadas.",nu:[["Plantación (días 0–60)","p","2 aplicaciones, cada 15 días"],["Crecimiento y formación","n","cada 15 días"],["Botones florales","p","1 aplicación"],["Floración y frutos","k","cada 15 días"]]},
+"Papaya":{po:"No se poda la copa ni la punta. Cada mes, con cuchillo limpio, corta las hojas viejas amarillas de la parte baja cerca del tallo. Si salen frutos deformes o muy juntos, ralea y deja los más sanos. Deja 1 sola planta por maceta.",nu:[["Plántula y primer trasplante (desde la 2.ª hoja)","e","½ dosis cada 14 días"],["Maceta definitiva (día 75+)","p","2 aplicaciones, 1 por semana"],["Crecimiento (días 90–200)","n","cada 15 días"],["Floración y frutos (día 200+)","k","cada 10–14 días"]]},
+"Palta Hass":{po:"Cuándo: poda ligera en verano, tras la cosecha. Cómo: con herramienta desinfectada quita ramas secas, cruzadas y chupones, y despunta las ramas altas para mantener 2,5–3 m. Corta sobre una yema y no quites más de 1/4 de la copa. No podes en frío ni con flores.",nu:[["Plantación (días 0–90)","p","3 aplicaciones, cada 21 días"],["Crecimiento","n","cada 30 días, alternando con 20-20-20"],["Floración","e","1 aplicación"],["Frutos engordando","k","cada 30 días"]],nn:"Es sensible a las sales: usa media dosis y cada 3 meses riega abundante para lavar la maceta."},
+"Mandarina":{po:"Cuándo: poda ligera una vez al año, después de cosechar; quita chupones apenas aparezcan. Cómo: con tijera o serrucho desinfectado corta ramas secas, cruzadas o hacia adentro, justo sobre una yema, sin quitar más de 1/3 de la copa. Si cuajan demasiados frutos pequeños, quita algunos para que los demás engorden.",nu:NC,nn:"Si las hojas amarillean entre las nervaduras falta hierro o zinc: usa un fertilizante con microelementos."},
+"Orégano":{po:"Cuándo: desde los 15–20 cm y tras cada floración. Cómo: corta las puntas encima de un par de hojas para que ramifique. Después de la flor, corta toda la mata a 5–8 cm del suelo para que rebrote tierna.",nu:[["Crecimiento","e","½ dosis cada 30 días"]],nn:"Con poco abono tiene más aroma."},
+"Hierba buena":{po:"Cuándo: cada 2–3 semanas. Cómo: pellizca las puntas para que haga más hojas y corta las flores. Una vez al año corta la mata a 5 cm y renueva el sustrato.",nu:[["Crecimiento y tras cada corte fuerte","n","½ dosis cada 15–20 días"]],nn:"No necesita Alto P ni Alto K."},
+"Hierba luisa":{po:"Cuándo: cada 2 meses en crecimiento. Cómo: corta las hojas a 10–15 cm del suelo con cuchillo limpio y retira las secas. Cada 2 años divide la mata en varias.",nu:[["Crecimiento en meses cálidos","n","cada 15 días"],["Meses fríos","e","½ dosis cada 30 días"]]},
+"Cedrón":{po:"Cuándo: despunta cada 4–6 semanas; poda fuerte a fines del invierno (agosto–septiembre). Cómo: pellizca las puntas para ramificar; en la poda fuerte reduce la planta a 1/3 con tijera limpia, sobre una yema, y quita la madera seca.",nu:[["Crecimiento","e","cada 30 días"],["Tras la poda fuerte","n","1 aplicación"]]},
+"Romero":{po:"Cuándo: después de la floración y al cosechar. Cómo: corta puntas de 5–8 cm sobre una zona con hojas. No cortes más de 1/3 ni en madera vieja sin hojas: no rebrota.",nu:[["Crecimiento","e","½ dosis cada 45 días"]],nn:"No lo abones mucho ni con Alto N: pierde aroma."},
+"Ají limo":{po:"Cuándo: al medir 20–25 cm, durante la cosecha y después. Cómo: despunta la guía para que ramifique, quita la primera flor y las hojas bajas o secas. Cuando baje la producción, corta la planta a 1/3 y abona.",nu:NP}
+};
 const mix=(a,b,t)=>{const f=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const x=f(a),y=f(b);return"#"+x.map((v,i)=>Math.round(v+(y[i]-v)*t).toString(16).padStart(2,"0")).join("")};
 const L=(a,len,w,col)=>`<ellipse cx="150" cy="${172-len/2}" rx="${w}" ry="${len/2}" fill="${col}" transform="rotate(${a} 150 172)"/>`;
 function draw(P,day){
@@ -179,39 +307,66 @@ function draw(P,day){
    o+=`<ellipse cx="${150+s*18}" cy="${y}" rx="${10+q*9}" ry="${5+q*4}" fill="${lc}" transform="rotate(${s*-25} ${150+s*18} ${y})"/>`;
    if(q>.55&&i>0&&i<5){o+=q<.75?`<circle cx="${150+s*10}" cy="${y+4}" r="3.5" fill="#f7d158"/>`:`<circle cx="${150+s*24}" cy="${y+12}" r="${6+q*6}" fill="#6aa84f"/><circle cx="${150+s*24}" cy="${y+12}" r="${6+q*6}" fill="${P.c}" opacity="${Math.min(1,(q-.75)/.25)}"/>`}}
   o+=`<ellipse cx="150" cy="${172-H}" rx="8" ry="5" fill="${lc}"/>`}
- else if(k=="leaf"){const n=3+Math.floor(q*9);for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*150;o+=L(a,15+q*(P.n=="Apio"?95:68),P.wd*(.4+q*.6),mix(lc,"#2d6a36",i%2?.3:0))}}
+ else if(k=="leaf"){const n=3+Math.floor(q*9);for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*150;o+=L(a,15+q*(P.n=="Apio"?95:(P.ln||68)),P.wd*(.4+q*.6),mix(lc,"#2d6a36",i%2?.3:0))}}
  else if(k=="root"){const n=3+Math.floor(q*6);for(let i=0;i<n;i++)o+=L((i/(n-1)-.5)*70,20+q*70,P.wd*(.6+q*.5),lc);
   const cn=P.n;if(cn=="Zanahoria")o+=`<path d="M${147-q*9} 172 h${6+q*18} L150 ${172+12+q*62}z" fill="${P.c}"/>`;
   else if(cn=="Beterraga")o+=`<circle cx="150" cy="${176}" r="${4+q*22}" fill="${P.c}"/><path d="M150 ${176+4+q*22} v12" stroke="${P.c}" stroke-width="2"/>`;
   else o+=`<ellipse cx="150" cy="172" rx="${4+q*20}" ry="${4+q*18}" fill="${P.c}"/><path d="M146 ${190} l-4 10 M154 190 l4 10" stroke="#eadcbc" stroke-width="2"/>`}
  else if(k=="head"){const n=4+Math.floor(q*6);for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*140;o+=L(a,25+q*65,12+q*10,mix(lc,"#2d6a36",i%2?.35:0))}
   if(q>.4){const s=Math.min(1,(q-.4)/.6),cy=172-28-q*38,R=8+s*26;o+=`<circle cx="150" cy="${cy}" r="${R}" fill="${P.c}"/>`;for(let j=0;j<7;j++)o+=`<circle cx="${150+Math.cos(j*.9)*R*.7}" cy="${cy+Math.sin(j*.9)*R*.7}" r="${R*.35}" fill="#4e9348"/>`}}
+ else if(k=="tree"){const T=12+q*62,R=10+q*40,cy=172-T-R*.4;
+  o+=`<rect x="${148-q*4}" y="${172-T}" width="${4+q*8}" height="${T}" fill="#7a5640"/><circle cx="150" cy="${cy}" r="${R}" fill="${lc}"/><circle cx="${150-R*.5}" cy="${cy+R*.2}" r="${R*.65}" fill="${mix(lc,"#2d6a36",.35)}"/><circle cx="${150+R*.5}" cy="${cy+R*.15}" r="${R*.6}" fill="${lc}"/>`;
+  if(q>.6)[[-.5,-.2],[.4,-.4],[.1,.3],[-.2,.5],[.6,.2],[0,-.6]].forEach(a=>o+=q<.8?`<circle cx="${150+a[0]*R}" cy="${cy+a[1]*R}" r="2.5" fill="#fff"/>`:`<circle cx="${150+a[0]*R}" cy="${cy+a[1]*R}" r="${3+q*3}" fill="${P.c}" opacity="${Math.min(1,(q-.8)/.15)}"/>`)}
+ else if(k=="vine"){const H=14+q*125;o+=`<line x1="70" y1="47" x2="230" y2="47" stroke="#9a9a9a" stroke-width="2"/><line x1="70" y1="47" x2="70" y2="172" stroke="#b5b5b5" stroke-width="2"/><line x1="230" y1="47" x2="230" y2="172" stroke="#b5b5b5" stroke-width="2"/><line x1="150" y1="172" x2="150" y2="${172-H}" stroke="#7a5640" stroke-width="3"/>`;
+  const n=2+Math.floor(q*9);for(let i=0;i<n;i++){const y=172-H*(i+1)/(n+1),s=i%2?1:-1;o+=`<circle cx="${150+s*(12+q*10)}" cy="${y}" r="${6+q*7}" fill="${mix(lc,"#2d6a36",i%3?0:.3)}"/>`}
+  if(q>.5)o+=`<line x1="${150-(q-.5)*140}" y1="47" x2="${150+(q-.5)*140}" y2="47" stroke="#7a5640" stroke-width="3"/>`;
+  if(q>.8){const t=Math.min(1,(q-.8)/.2),col=mix("#7cb860",P.c,t);[-42,-20,20,42].forEach(d=>{if(P.cl)[[-4,0],[4,0],[-6,7],[0,7],[6,7],[0,14]].forEach(a=>o+=`<circle cx="${150+d+a[0]}" cy="${54+a[1]}" r="4" fill="${col}"/>`);else o+=`<circle cx="${150+d}" cy="62" r="${7+q*3}" fill="${col}"/>`})}}
+ else if(k=="banana"){const T=14+q*50,w=6+q*9,n=3+Math.floor(q*4);o+=`<rect x="${150-w/2}" y="${172-T}" width="${w}" height="${T}" rx="3" fill="#8bb36a"/>`;
+  for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*130,len=20+q*70;o+=`<ellipse cx="150" cy="${172-T-len/2+4}" rx="${5+q*9}" ry="${len/2}" fill="${mix(lc,"#2d6a36",i%2?.3:0)}" transform="rotate(${a} 150 ${172-T+4})"/>`}
+  if(q>.7){const t=Math.min(1,(q-.7)/.25);o+=`<path d="M150 ${172-T+8} q22 6 22 ${22+q*10}" stroke="#7a5640" stroke-width="2" fill="none"/>`;for(let j=0;j<8;j++){const x=164+(j%2)*7,y=172-T+22+j*4;o+=`<ellipse cx="${x}" cy="${y}" rx="3.2" ry="8" fill="${mix("#8fbf6a","#f2d03b",t)}" transform="rotate(-18 ${x} ${y})"/>`}}}
+ else if(k=="papaya"){const T=14+q*70,w=5+q*6,n=3+Math.floor(q*4);o+=`<rect x="${150-w/2}" y="${172-T}" width="${w}" height="${T}" rx="2" fill="#9bb77a"/>`;
+  for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*140,len=16+q*50,x=150+Math.sin(a*Math.PI/180)*len,y=172-T-Math.cos(a*Math.PI/180)*len;o+=`<line x1="150" y1="${172-T}" x2="${x}" y2="${y}" stroke="#8aa86a" stroke-width="2"/><circle cx="${x}" cy="${y}" r="${6+q*13}" fill="${mix(lc,"#2d6a36",i%2?.3:0)}"/>`}
+  if(q>.6)for(let j=0;j<3;j++)o+=`<ellipse cx="${150+(j-1)*7}" cy="${172-T+10+(j%2)*7}" rx="${3+q*5}" ry="${5+q*8}" fill="${q<.85?"#9cc36a":mix("#9cc36a",P.c,(q-.85)/.15)}"/>`}
+ else if(k=="shrub"){const n=5+Math.floor(q*5),H=14+q*(P.ln||80),w=P.wd||6;for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*70,rd=a*Math.PI/180;o+=`<line x1="150" y1="172" x2="${150+Math.sin(rd)*H}" y2="${172-Math.cos(rd)*H}" stroke="#7a5640" stroke-width="2"/>`;
+   for(let j=1;j<=3;j++){const f=j/3,x=150+Math.sin(rd)*H*f,y=172-Math.cos(rd)*H*f;o+=`<ellipse cx="${x}" cy="${y}" rx="${w*(.5+q*.5)}" ry="${w*(.8+q*.8)}" fill="${lc}" transform="rotate(${a*.6} ${x} ${y})"/>`}}
+  if(q>.85&&P.fl)for(let i=0;i<4;i++)o+=`<circle cx="${150+(i-1.5)*20}" cy="${172-H*.8}" r="3.5" fill="${P.fl}"/>`}
+ else if(k=="berry"){const n=4+Math.floor(q*6);for(let i=0;i<n;i++)o+=L((i/(n-1)-.5)*150,12+q*40,9+q*8,mix(lc,"#2d6a36",i%2?.3:0));
+  if(q>.5)[-58,-34,-12,14,38,60].forEach((d,j)=>{const x=150+d,y=164+(j%2)*4;o+=`<path d="M150 172 Q${150+d/2} 150 ${x} ${y}" stroke="${lc}" stroke-width="1.5" fill="none"/>`;
+   o+=q<.7?`<circle cx="${x}" cy="${y}" r="4" fill="#fff"/><circle cx="${x}" cy="${y}" r="1.8" fill="#f2b632"/>`:`<ellipse cx="${x}" cy="${y+4}" rx="${5+q*4}" ry="${6+q*5}" fill="#8fbf6a"/><ellipse cx="${x}" cy="${y+4}" rx="${5+q*4}" ry="${6+q*5}" fill="${P.c}" opacity="${Math.min(1,(q-.7)/.25)}"/>`})}
+ else if(k=="pod"){const H=14+q*100,n=3+Math.floor(q*6);o+=`<line x1="150" y1="172" x2="150" y2="${172-H}" stroke="${lc}" stroke-width="2.5"/>`;
+  for(let i=0;i<n;i++){const y=172-H*(i+1)/(n+1),s=i%2?1:-1,l=8+q*12,x=150+s*l*1.4;
+   o+=`<line x1="150" y1="${y}" x2="${x}" y2="${y-l*.6}" stroke="${lc}" stroke-width="1.6"/><ellipse cx="${x}" cy="${y-l*.8}" rx="${3+q*3}" ry="${6+q*4}" fill="${lc}" transform="rotate(${s*25} ${x} ${y-l*.8})"/>`;
+   if(q>.45&&i>0&&i<5)o+=q<.6?`<circle cx="${x+s*6}" cy="${y}" r="3" fill="#b9a3e0"/>`:`<ellipse cx="${x+s*6}" cy="${y+6}" rx="3.5" ry="${8+q*3}" fill="${mix("#6aa84f","#c9a35a",Math.min(1,(q-.6)/.35))}"/>`}}
  else{const n=3+Math.floor(q*4);for(let i=0;i<n;i++){const a=(i/(n-1)-.5)*70,H=20+q*105,rad=a*Math.PI/180,x=150+Math.sin(rad)*H,y=172-Math.cos(rad)*H;
   o+=`<line x1="150" y1="172" x2="${x}" y2="${y}" stroke="${lc}" stroke-width="3"/>`+L(a-35,20+q*18,4,lc).replace('cx="150"',`cx="${150+Math.sin(rad)*H*.4}"`).replace(/rotate\(([-\d.]+) 150 172\)/,"rotate($1 150 172)");
   if(q>.7){o+=`<circle cx="${x}" cy="${y}" r="${5+q*8}" fill="#fff" stroke="#e5e5e5"/><circle cx="${x}" cy="${y}" r="${3+q*3}" fill="#f2b632"/>`}}}
  return o+"</svg>"}
 const $=i=>document.getElementById(i),now=new Date(),mm=now.getMonth()+1;
 let cur=0,day=0;
-$("sd").valueAsDate=now;
+$("sd").value=now.toLocaleDateString("sv-SE");
 const names=P.filter(p=>p.m.includes(mm)).map(p=>p.n);
 $("now").innerHTML=`<b>Este mes (${MES[mm-1]}) en Lima conviene sembrar:</b> ${names.length?names.join(", "):"casi nada en fruto; es buen momento para hojas y raíces"}. Las plantas con punto amarillo son de temporada.`;
 $("picker").innerHTML=P.map((p,i)=>`<button class="pk${p.m.includes(mm)?" now":""}" data-i="${i}" aria-pressed="false">${draw(p,p.h[1])}${p.n}</button>`).join("");
 $("picker").onclick=e=>{const b=e.target.closest(".pk");if(b)pick(+b.dataset.i,true)};
 $("sl").oninput=e=>{day=+e.target.value;upd()};
 $("sd").onchange=upd;
+$("dd").onchange=e=>{const s=$("sd").valueAsDate,v=e.target.valueAsDate;if(!s||!v)return upd();day=Math.max(0,Math.min(+$("sl").max,Math.round((v-s)/864e5)));$("sl").value=day;upd()};
 $("tl").onclick=e=>{const b=e.target.closest("button");if(b){day=+b.dataset.d;$("sl").value=day;upd()}};
 const fd=d=>{const s=$("sd").valueAsDate||now,t=new Date(s.getTime()+d*864e5);return t.toLocaleDateString("es-PE",{day:"numeric",month:"short",timeZone:"UTC"})};
-function pick(i,scroll){cur=i;day=0;$("sl").max=P[i].h[1];$("sl").value=0;history.replaceState(null,"","#"+P[i].n.toLowerCase());upd();if(scroll&&innerWidth<820)$("ex").scrollIntoView()}
+function pick(i,scroll){cur=i;day=0;$("sl").max=P[i].h[1];$("sl").step=P[i].h[1]>300?5:1;$("sl").value=0;history.replaceState(null,"","#"+P[i].n.toLowerCase());upd();if(scroll&&innerWidth<820)$("ex").scrollIntoView()}
 function upd(){
  const p=P[cur],st=p.s.filter(s=>s[0]<=day).pop();
  document.querySelectorAll(".pk").forEach((b,i)=>b.setAttribute("aria-pressed",i==cur));
  $("art").innerHTML=draw(p,day);$("art").setAttribute("aria-label",`${p.n} en el día ${day}: ${st[1]}`);
- $("dn").textContent=day;$("dd").textContent=fd(day);
+ $("dn").textContent=day;
+ {const s=$("sd").valueAsDate||now,f=d=>new Date(s.getTime()+d*864e5).toISOString().slice(0,10);$("dd").min=f(0);$("dd").max=f(p.h[1]);$("dd").value=f(day)}
  $("st").textContent=st[1];$("stx").textContent=st[2];$("rd").hidden=day<p.h[0];
  $("pn").textContent=p.n;
  $("facts").innerHTML=p.f.map(f=>`<dt>${f[0]}</dt><dd>${f[1]}</dd>`).join("")+`<dt>Mejor época en Lima</dt><dd>${MES[p.m[0]-1]} a ${MES[p.m[p.m.length-1]-1]}</dd>`;
  $("tl").innerHTML=p.s.map((s,i)=>{const nx=p.s[i+1],c=day>=s[0]&&(!nx||day<nx[0])?"cur":day>s[0]?"done":"";return`<li class="${c}"><button data-d="${s[0]}"><b>${s[1]}</b><small>Día ${s[0]} · ${fd(s[0])}</small>${s[2]}</button></li>`}).join("");
- $("hv").textContent=p.hv;$("tp").textContent=p.tp}
+ $("hv").textContent=p.hv;$("tp").textContent=p.tp;
+ const x=X[p.n]||{};$("po").textContent=x.po||"";$("nn").textContent=x.nn||"";
+ $("nu").innerHTML="<tr><th>Fase</th><th>Producto</th><th>Cada cuánto</th></tr>"+(x.nu||[]).map(r=>`<tr><td>${r[0]}</td><td><span class="fx ${r[1]}">${F[r[1]]}</span></td><td>${r[2]}</td></tr>`).join("")}
 const h=P.findIndex(p=>"#"+p.n.toLowerCase()==location.hash);pick(h<0?0:h,false);
 </script>
 </body>
